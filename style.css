@@ -51,7 +51,7 @@ main {
 .content {
     text-align: center;
     padding: 2rem 3rem;
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
 }
 
@@ -61,121 +61,166 @@ main {
     font-size: 2rem;
 }
 
-/* ========== FORM STYLES ========== */
-.feedback-form {
+/* ========== EQUATION FORM ========== */
+.equation-form {
     text-align: left;
+    background: #f9f9f9;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.equation-form h3 {
+    color: #0055a4;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.equation-display {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #0055a4;
+}
+
+.equation-text {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.equation-text strong {
+    color: #0055a4;
+    font-size: 1.4rem;
+}
+
+/* ========== ANALYSIS RESULT ========== */
+.analysis-result {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #28a745;
+}
+
+.analysis-result h4 {
+    color: #0055a4;
+    margin-bottom: 1rem;
+}
+
+.analysis-result ul {
+    list-style: none;
+    padding: 0;
+}
+
+.analysis-result li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.analysis-result li:last-child {
+    border-bottom: none;
+}
+
+/* ========== SOLUTION STEPS ========== */
+.solution-steps {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #ffc107;
+}
+
+.solution-steps h4 {
+    color: #0055a4;
+    margin-bottom: 1rem;
+}
+
+.solution-steps ol {
+    padding-left: 1.5rem;
+    text-align: left;
+}
+
+.solution-steps li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+    font-family: 'Courier New', monospace;
+    background: #f8f9fa;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 4px;
+}
+
+/* ========== FINAL ANSWER ========== */
+.final-answer {
+    background: linear-gradient(135deg, #0055a4, #003366);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.final-answer h3 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* ========== FLOWCHART ========== */
+.flowchart {
     background: #f9f9f9;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+.flowchart h3 {
     color: #0055a4;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #0055a4;
-}
-
-.checkbox-group {
-    display: flex;
-    gap: 2rem;
-    margin-top: 0.5rem;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: normal;
-    cursor: pointer;
-}
-
-.checkbox-group input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-}
-
-/* ========== BUTTONS ========== */
-.btn-submit {
-    width: 100%;
-    padding: 1rem;
-    background-color: #0055a4;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-submit:hover {
-    background-color: #003366;
-}
-
-.btn-secondary {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: #6c757d;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: background-color 0.3s;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-
-/* ========== NAVIGATION LINK ========== */
-.nav-link {
-    margin-top: 2rem;
+.flowchart-container {
     text-align: center;
 }
 
-/* ========== HEADERS OUTPUT ========== */
-.description {
-    text-align: left;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
+.flowchart-img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #0055a4;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    background: white;
 }
 
-.headers-output {
-    width: 100%;
-    padding: 1rem;
-    background-color: #f4f4f4;
-    border: 2px solid #0055a4;
-    border-radius: 5px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
+.flowchart-description {
     text-align: left;
-    resize: vertical;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #17a2b8;
+}
+
+.flowchart-description h4 {
+    color: #0055a4;
+    margin-bottom: 1rem;
+}
+
+.flowchart-description ol {
+    padding-left: 1.5rem;
+}
+
+.flowchart-description li {
+    padding: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.flowchart-description strong {
+    color: #0055a4;
 }
 
 /* ========== FOOTER ========== */
@@ -197,12 +242,16 @@ footer {
         position: static;
     }
     
-    .checkbox-group {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-    
     .content {
         padding: 1.5rem;
+    }
+    
+    .equation-form,
+    .flowchart {
+        padding: 1.5rem;
+    }
+    
+    .final-answer h3 {
+        font-size: 1.5rem;
     }
 }
