@@ -1,0 +1,1 @@
+console.log("PHP Lab 1 loaded");
