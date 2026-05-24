@@ -9,11 +9,11 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: white;
+    background-color: #f4f4f9;
     color: #333;
 }
 
-/* ========== HEADER ========== */
+/* HEADER */
 header {
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@ header h1 {
     flex: 1;
 }
 
-/* ========== MAIN ========== */
+/* MAIN */
 main {
     flex: 1;
     display: flex;
@@ -48,210 +48,97 @@ main {
     padding: 2rem;
 }
 
-.content {
-    text-align: center;
-    padding: 2rem 3rem;
-    max-width: 900px;
+.calculator-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     width: 100%;
-}
-
-.content h2 {
-    color: #0055a4;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-}
-
-/* ========== EQUATION FORM ========== */
-.equation-form {
-    text-align: left;
-    background: #f9f9f9;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
-}
-
-.equation-form h3 {
-    color: #0055a4;
-    margin-bottom: 1.5rem;
+    max-width: 400px;
     text-align: center;
-    font-size: 1.5rem;
 }
 
-.equation-display {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
+.calculator-container h2 {
+    color: #0055a4;
     margin-bottom: 1.5rem;
-    border-left: 4px solid #0055a4;
 }
 
-.equation-text {
+/* INPUT & RESULT */
+#display {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    text-align: right;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.result-display {
     font-size: 1.2rem;
-    margin: 0;
-}
-
-.equation-text strong {
     color: #0055a4;
-    font-size: 1.4rem;
-}
-
-/* ========== ANALYSIS RESULT ========== */
-.analysis-result {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
+    font-weight: bold;
     margin-bottom: 1.5rem;
-    border-left: 4px solid #28a745;
+    min-height: 1.5em;
+    text-align: right;
+    padding-right: 0.5rem;
 }
 
-.analysis-result h4 {
-    color: #0055a4;
-    margin-bottom: 1rem;
+/* BUTTONS GRID */
+.buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
 }
 
-.analysis-result ul {
-    list-style: none;
-    padding: 0;
-}
-
-.analysis-result li {
-    padding: 0.5rem 0;
-    font-size: 1.1rem;
-    border-bottom: 1px solid #eee;
-}
-
-.analysis-result li:last-child {
-    border-bottom: none;
-}
-
-/* ========== SOLUTION STEPS ========== */
-.solution-steps {
-    background: white;
-    padding: 1.5rem;
+.btn {
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: none;
     border-radius: 8px;
-    margin-bottom: 1.5rem;
-    border-left: 4px solid #ffc107;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    transition: background 0.2s;
 }
 
-.solution-steps h4 {
-    color: #0055a4;
-    margin-bottom: 1rem;
+.btn:hover {
+    background-color: #d0d0d0;
 }
 
-.solution-steps ol {
-    padding-left: 1.5rem;
-    text-align: left;
-}
-
-.solution-steps li {
-    padding: 0.5rem 0;
-    font-size: 1.1rem;
-    font-family: 'Courier New', monospace;
-    background: #f8f9fa;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem 0;
-    border-radius: 4px;
-}
-
-/* ========== FINAL ANSWER ========== */
-.final-answer {
-    background: linear-gradient(135deg, #0055a4, #003366);
+.btn-op {
+    background-color: #0055a4;
     color: white;
-    padding: 2rem;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-.final-answer h3 {
-    font-size: 2rem;
-    margin: 0;
+.btn-op:hover {
+    background-color: #003366;
 }
 
-/* ========== FLOWCHART ========== */
-.flowchart {
-    background: #f9f9f9;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.btn-clear {
+    background-color: #d9534f;
+    color: white;
 }
 
-.flowchart h3 {
-    color: #0055a4;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-size: 1.5rem;
+.btn-clear:hover {
+    background-color: #c9302c;
 }
 
-.flowchart-container {
-    text-align: center;
+.btn-equal {
+    background-color: #28a745;
+    color: white;
+    grid-column: span 2; /* Кнопка = занимает 2 колонки */
 }
 
-.flowchart-img {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid #0055a4;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    background: white;
+.btn-equal:hover {
+    background-color: #218838;
 }
 
-.flowchart-description {
-    text-align: left;
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #17a2b8;
-}
-
-.flowchart-description h4 {
-    color: #0055a4;
-    margin-bottom: 1rem;
-}
-
-.flowchart-description ol {
-    padding-left: 1.5rem;
-}
-
-.flowchart-description li {
-    padding: 0.5rem 0;
-    line-height: 1.6;
-}
-
-.flowchart-description strong {
-    color: #0055a4;
-}
-
-/* ========== FOOTER ========== */
+/* FOOTER */
 footer {
     text-align: center;
     padding: 1.5rem;
     background-color: #0055a4;
     color: white;
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .logo {
-        position: static;
-    }
-    
-    .content {
-        padding: 1.5rem;
-    }
-    
-    .equation-form,
-    .flowchart {
-        padding: 1.5rem;
-    }
-    
-    .final-answer h3 {
-        font-size: 1.5rem;
-    }
 }
