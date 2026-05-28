@@ -1,47 +1,40 @@
 :root {
     --color_a: rgb(1, 5, 17);
     --back_a: rgba(92, 103, 168, 0.541);
+    --bg-light: #f4f4f9;
 }
 
 html {
-    font-family: sans-serif;
-    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
 }
 
 body {
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
-    background-color: rgb(247, 247, 247);
-    font-size: 20px;
-    padding-bottom: 70px; /* Отступ под футер */
+    background-color: var(--bg-light);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-*, *::after, *::before {
-    box-sizing: border-box;
-}
-
-main {
-    text-align: center;
-    padding: 20px;
-}
-
-/* --- HEADER ИСПРАВЛЕННЫЙ --- */
+/* --- HEADER --- */
 header {
     width: 100%;
-    height: 80px;
-    background-color: rgba(92, 103, 168, 0.856);
+    height: 100px;
+    background-color: #0055a4; 
     display: flex;
-    justify-content: center; /* Центрируем заголовок */
     align-items: center;
-    position: relative; /* Чтобы лого можно было прижать влево */
-    padding: 0 20px;
+    justify-content: center; 
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 header img {
-    position: absolute; /* Вырываем из потока и прижимаем влево */
+    position: absolute;
     left: 20px;
-    width: 170px;
+    width: 200px; 
     height: auto;
     background: white;
     padding: 2px;
@@ -49,184 +42,91 @@ header img {
 }
 
 header h1 {
+    color: white;
+    font-size: 1.5rem;
     margin: 0;
-    font-size: 24px;
-    color: #fff;
     text-align: center;
 }
-/* ------------------------- */
 
-a {
-    font-family: 'Lemonada', cursive;
-    text-decoration: none;
-    color: var(--color_a);
+/* --- MAIN CONTENT --- */
+main {
+    flex: 1;
+    padding: 2rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-a:hover {
-    background-color: var(--back_a);
-    opacity: 1;
+/* --- TASK BLOCKS --- */
+.task {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-align: left; /* Текст внутри блока слева */
 }
 
-.select {
-    text-decoration: underline;
-    text-decoration-style: double;
-    font-weight: bold;
+.task h2 {
+    color: #0055a4;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
 }
 
-/* Стили для ссылок меню */
-nav {
-    margin: 10px 0;
-}
-nav a {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 5px 10px;
-    border-radius: 5px;
+.result {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #444;
 }
 
-.submenu {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    gap: 10px;
+.result p {
+    margin: 0.5rem 0;
 }
 
-.submenu a {
-    display: block;
-    padding: 5px 10px;
-    text-decoration: none;
-    text-align: center;
-    font-size: 0.9em;
+.result strong {
+    color: #0055a4;
 }
 
-.submenu .select {
-    text-decoration: underline;
-    text-decoration-style: double;
+.result pre {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    overflow-x: auto;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    margin: 1rem 0;
 }
 
-.success {
-    color: #0f5132;
-    background-color: #d1e7dd;
-    border-color: #badbcc;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
+.result hr {
+    border: 0;
+    border-top: 1px dashed #ccc;
+    margin: 1rem 0;
 }
 
-.error {
-    color: red;
-    background-color: #f8d7da;
-    border-color: #f5c2c7;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
-
-.add {
-    width: 90%;
-    margin: 15px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.column {
-    margin: auto;
-    width: 50%;
-    min-width: 300px;
-}
-
-.div-edit {
-    width: 200px;
-    text-align: left;
-    padding-left: 15px;
-}
-
-.div-edit .currentRow {
-    color: var(--color_a);
-    background-color: var(--back_a);
-    padding: 5px;
-    border-radius: 4px;
-}
-
-input, select, textarea {
-    display: block;
-    width: 100%; /* Чтобы влезало в форму */
-    max-width: 400px;
-    padding: 5px;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: black;
-    background-color: #fff;
-    border: 1px solid var(--color_a);
-    border-radius: 5px;
-}
-
-label {
-    display: inline-block;
-    box-sizing: border-box;
-    padding: inherit;
-}
-
-table {
-    margin: 20px auto;
-    font-size: 15px;
-    border-collapse: collapse;
-    width: 90%;
-}
-
-td, th {
-    background-color: white;
-    padding: 8px;
-    border: 1px solid #ccc;
-}
-
-.form-btn {
-    background-color: rgb(92, 103, 168);
-    border: none;
-    width: 200px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    transition: .3s;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.form-btn:hover {
-    background-color: #0d26b4;
-}
-
+/* --- FOOTER --- */
 footer {
     width: 100%;
     height: 50px;
-    background-color: rgb(92, 103, 168);
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    background-color: #0055a4;
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.9rem;
 }
 
-.pagination {
-    margin: 20px 0;
-}
-.pagination a {
-    display: inline-block;
-    margin: 0 2px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-.pagination a:hover {
-    border: 2px solid var(--color_a);
-}
-.pagination .select {
-    background-color: var(--back_a);
-    color: white;
-    border-color: var(--color_a);
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.2rem;
+        padding-left: 80px; /* Чтобы не наезжало на лого на мобильных */
+    }
+    
+    .task {
+        padding: 1.5rem;
+    }
 }
