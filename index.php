@@ -1,71 +1,66 @@
 <?php
-// Подключаем файлы с логикой
-require_once 'encapsulation.php';
-require_once 'interfaces.php';
-require_once 'inheritance.php';
-require_once 'abstract_classes.php';
+header('Content-Type: text/html; charset=utf-8');
+// ================= КОНТРОЛЛЕР =================
+
+class Controller {
+    // Метод sayBye принимает имя и возвращает прощание
+    public function sayBye(string $name): string {
+        return "Пока, $name";
+    }
+}
+
+// ================= РОУТЕР =================
+
+// Получаем путь из URL
+$requestUri = $_SERVER['REQUEST_URI'];
+$path = parse_url($requestUri, PHP_URL_PATH);
+$path = trim($path, '/');
+$parts = explode('/', $path);
+
+// Создаём экземпляр контроллера
+$controller = new Controller();
+
+// Обрабатываем роут /bye/{name}
+if ($parts[0] === 'bye' && isset($parts[1])) {
+    $name = urldecode($parts[1]);
+    // Дополнительно декодируем если нужно
+    $name = mb_convert_encoding($name, 'UTF-8', 'UTF-8');
+    $result = $controller->sayBye($name);
+} else 
 ?>
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лабораторная работа №6: ООП в PHP</title>
+    <title>Лабораторная работа №7: Роутинг</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- HEADER -->
     <header>
         <img src="logo.jpg" alt="Логотип МосПолитех">
-        <h1>Лабораторная работа №6: ООП в PHP</h1>
+        <h1>Лабораторная работа №7: Роутинг и Контроллер</h1>
     </header>
 
-    <!-- MAIN CONTENT -->
     <main>
-        
-        <!-- ЗАДАНИЕ 1 -->
-        <section class="task">
-            <h2>Задание 1: Инкапсуляция</h2>
+        <div class="task-container">
+            <h2>Результат выполнения роута:</h2>
             <div class="result">
-                <p><?= $catTaskResult->sayHello() ?></p>
-                <p><strong>Геттер color:</strong> <?= $catTaskResult->getColor() ?></p>
+                <?= htmlspecialchars($result) ?>
             </div>
-        </section>
 
-        <!-- ЗАДАНИЕ 2 -->
-        <section class="task">
-            <h2>Задание 2: Интерфейсы + get_class()</h2>
-            <div class="result">
-                <?php foreach ($interfaceResults as $res): ?>
-                    <p><?= $res ?></p>
-                    <hr>
-                <?php endforeach; ?>
-            </div>
-        </section>
+            <hr>
 
-        <!-- ЗАДАНИЕ 3 -->
-        <section class="task">
-            <h2>Задание 3: Наследование + PaidLesson</h2>
-            <div class="result">
-                <h3>Объект PaidLesson:</h3>
-                <pre><?php var_dump($paidLessonTask) ?></pre>
-                <p><strong>Цена урока:</strong> <?= $paidLessonTask->getPrice() ?> ₽</p>
-            </div>
-        </section>
-
-        <!-- ЗАДАНИЕ 4 -->
-        <section class="task">
-            <h2> Задание 4: Абстрактные классы</h2>
-            <div class="result">
-                <p><?= $ruHuman->introduceYourself() ?></p>
-                <p><?= $enHuman->introduceYourself() ?></p>
-            </div>
-        </section>
-
+            <h3>Примеры использования:</h3>
+            <ul>
+                <li><a href="/bye/Иван">/bye/Иван</a></li>
+                <li><a href="/bye/Мария">/bye/Мария</a></li>
+                <li><a href="/bye/Алексей">/bye/Алексей</a></li>
+            </ul>
+        </div>
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <p>задание для самостоятельной работы</p>
     </footer>

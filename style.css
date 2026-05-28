@@ -1,132 +1,33 @@
-:root {
-    --color_a: rgb(1, 5, 17);
-    --back_a: rgba(92, 103, 168, 0.541);
-    --bg-light: #f4f4f9;
-}
-
-html {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 16px;
-}
-
-body {
-    padding: 0;
-    margin: 0;
-    background-color: var(--bg-light);
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* --- HEADER --- */
-header {
+.layout {
     width: 100%;
-    height: 100px;
-    background-color: #0055a4; 
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    position: relative;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    max-width: 1024px;
+    margin: auto;
+    background-color: white;
+    border-collapse: collapse;
 }
 
-header img {
-    position: absolute;
-    left: 20px;
-    width: 200px; 
-    height: auto;
-    background: white;
-    padding: 2px;
-    border-radius: 4px;
+.layout tr td {
+    padding: 20px;
+    vertical-align: top;
+    border: solid 1px gray;
 }
 
-header h1 {
-    color: white;
-    font-size: 1.5rem;
-    margin: 0;
+.header {
+    font-size: 30px;
+}
+
+.footer {
     text-align: center;
 }
 
-/* --- MAIN CONTENT --- */
-main {
-    flex: 1;
-    padding: 2rem 1rem;
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
+.sidebarHeader {
+    font-size: 20px;
 }
 
-/* --- TASK BLOCKS --- */
-.task {
-    background: white;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    text-align: left; /* Текст внутри блока слева */
+.sidebar ul {
+    padding-left: 20px;
 }
 
-.task h2 {
-    color: #0055a4;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    font-size: 1.4rem;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 0.5rem;
-}
-
-.result {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #444;
-}
-
-.result p {
-    margin: 0.5rem 0;
-}
-
-.result strong {
-    color: #0055a4;
-}
-
-.result pre {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 6px;
-    border: 1px solid #e9ecef;
-    overflow-x: auto;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9rem;
-    margin: 1rem 0;
-}
-
-.result hr {
-    border: 0;
-    border-top: 1px dashed #ccc;
-    margin: 1rem 0;
-}
-
-/* --- FOOTER --- */
-footer {
-    width: 100%;
-    height: 50px;
-    background-color: #0055a4;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 600px) {
-    header h1 {
-        font-size: 1.2rem;
-        padding-left: 80px; /* Чтобы не наезжало на лого на мобильных */
-    }
-    
-    .task {
-        padding: 1.5rem;
-    }
+a, a:visited {
+    color: darkgreen;
 }
