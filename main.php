@@ -1,4 +1,8 @@
 <?php
+// ================= ПОДКЛЮЧЕНИЕ К БД (для Лабы 9) =================
+require_once 'db.php';
+// =================================================================
+
 // ================= КОНТРОЛЛЕР =================
 
 class Controller {
@@ -22,6 +26,43 @@ class Controller {
     // ==========================================
 }
 
+// ================= ЛАБА 9 =================
+// Контроллер статей с работой с БД
+class ArticlesController {
+    private $pdo;
+    
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
+    }
+    
+    // ================= ЛАБА 9 =================
+    // Задание: в экшне show() после получения статьи, 
+    // добавить запрос на получение автора из таблицы users
+    public function show(int $id): array {
+        // 1. Получаем статью по ID
+        $stmt = $this->pdo->prepare('SELECT * FROM articles WHERE id = ?');
+        $stmt->execute([$id]);
+        $article = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$article) {
+            return null;
+        }
+        
+        // 2. Получаем автора статьи из таблицы users (ЗАДАНИЕ ЛАБЫ 9)
+        $stmt = $this->pdo->prepare('SELECT nickname FROM users WHERE id = ?');
+        $stmt->execute([$article['author_id']]);
+        $author = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // 3. Возвращаем статью + никнейм автора
+        return [
+            'article' => $article,
+            'author_nickname' => $author['nickname'] ?? 'Неизвестный автор'
+        ];
+    }
+    // ==========================================
+}
+// ==========================================
+
 // ================= РОУТЕР =================
 
 $requestUri = $_SERVER['REQUEST_URI'];
@@ -37,9 +78,39 @@ $pageContent = '';
 $pageTitle = 'Мой блог';
 // ==========================================
 
+// Инициализируем контроллер статей (Лаба 9)
+$articlesController = new ArticlesController($pdo);
+
 if ($path === '' || $path === 'index.php' || $path === 'main.php') {
-    $pageContent = $controller->home();
+    // Главная - список статей (Лаба 9)
+    $stmt = $pdo->query('SELECT id, title FROM articles');
+    $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $pageContent = '<h2>Список статей:</h2><ul>';
+    foreach ($articles as $art) {
+        $pageContent .= '<li><a href="/article/' . $art['id'] . '">' . htmlspecialchars($art['title']) . '</a></li>';
+    }
+    $pageContent .= '</ul>';
 } 
+elseif ($parts[0] === 'article' && isset($parts[1])) {
+    // ================= ЛАБА 9 =================
+    // Роут /article/{id} → показывает статью с автором
+    $articleId = (int)$parts[1];
+    $data = $articlesController->show($articleId);
+    
+    if ($data) {
+        // Выводим статью + никнейм автора (ЗАДАНИЕ ЛАБЫ 9)
+        $pageContent = '
+            <h2>' . htmlspecialchars($data['article']['title']) . '</h2>
+            <p><strong>Автор:</strong> ' . htmlspecialchars($data['author_nickname']) . '</p>
+            <hr>
+            <p>' . nl2br(htmlspecialchars($data['article']['content'])) . '</p>
+        ';
+    } else {
+        $pageContent = '<h2>404</h2><p>Статья не найдена.</p>';
+    }
+    // ==========================================
+}
 elseif ($parts[0] === 'about-me') {
     $pageContent = $controller->aboutMe();
 } 
@@ -75,12 +146,12 @@ else {
     ========================================== -->
     <title><?= htmlspecialchars($pageTitle) ?></title>
     
-    <link rel="stylesheet" href="style/styles.css">
+    <link rel="stylesheet" href="/style/styles.css">
 </head>
 <body>
     <header>
         <img src="logo.jpg" alt="Логотип МосПолитех">
-        <h1>Лабораторная работа №7: Роутинг и Контроллер</h1>
+        <h1>Лабораторная работа №7-9: Роутинг, Контроллер и БД</h1>
     </header>
 
     <main>
@@ -106,9 +177,18 @@ else {
 
         <hr>
 
+        <h3>Статьи (Лаба 9):</h3>
+        <ul>
+            <li><a href="/article/1">Статья 1 (автор: Иванов)</a></li>
+            <li><a href="/article/2">Статья 2 (автор: Петров)</a></li>
+            <li><a href="/article/3">Статья 3 (автор: Сидоров)</a></li>
+        </ul>
+
+        <hr>
+
         <h3>Другие маршруты:</h3>
         <ul>
-            <li><a href="/">Главная страница</a></li>
+            <li><a href="/">Главная страница (список статей)</a></li>
             <li><a href="/about-me">Обо мне</a></li>
             <li><a href="/hello/Алексей">Приветствие (Алексей)</a></li>
             <li><a href="/bye/Дмитрий">Прощание (Дмитрий)</a></li>
