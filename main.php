@@ -60,6 +60,44 @@ class ArticlesController {
         ];
     }
     // ==========================================
+    
+    // ================= ЛАБА 10 =================
+    // Задание: создать метод edit() для редактирования статьи
+    // Маршрут: /article/{id}/edit
+    public function edit(int $id): array {
+        $message = '';
+        $article = null;
+        
+        // Если это POST запрос - сохраняем изменения
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'] ?? '';
+            $content = $_POST['content'] ?? '';
+            
+            if ($title && $content) {
+                // Обновляем статью в БД
+                $stmt = $this->pdo->prepare('UPDATE articles SET title = ?, content = ? WHERE id = ?');
+                $stmt->execute([$title, $content, $id]);
+                
+                $message = '<div class="success-message">Статья успешно обновлена!</div>';
+                
+                // Получаем обновлённую статью
+                $article = $this->show($id);
+            } else {
+                $message = '<div class="error-message">Заполните все поля!</div>';
+            }
+        }
+        
+        // Если статья ещё не загружена - загружаем
+        if (!$article) {
+            $article = $this->show($id);
+        }
+        
+        return [
+            'article' => $article,
+            'message' => $message
+        ];
+    }
+    // ==========================================
 }
 // ==========================================
 
@@ -81,16 +119,54 @@ $pageTitle = 'Мой блог';
 // Инициализируем контроллер статей (Лаба 9)
 $articlesController = new ArticlesController($pdo);
 
-if ($path === '' || $path === 'index.php' || $path === 'main.php') {
-    // Главная - список статей (Лаба 9)
+// ================= ЛАБА 10 =================
+// Маршрут: /article/{id}/edit
+if (preg_match('~^article/(\d+)/edit$~', $path, $matches)) {
+    $articleId = (int)$matches[1];
+    $data = $articlesController->edit($articleId);
+    
+    if ($data['article']) {
+        // Форма редактирования статьи (ЗАДАНИЕ ЛАБЫ 10)
+        $pageContent = '
+            ' . $data['message'] . '
+            <h2>Редактирование статьи</h2>
+            <form method="POST" action="/article/' . $articleId . '/edit" class="edit-form">
+                <div class="form-group">
+                    <label for="title">Заголовок:</label>
+                    <input type="text" id="title" name="title" value="' . htmlspecialchars($data['article']['article']['title']) . '" required>
+                </div>
+                <div class="form-group">
+                    <label for="content">Содержание:</label>
+                    <textarea id="content" name="content" rows="6" required>' . htmlspecialchars($data['article']['article']['content']) . '</textarea>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    <a href="/article/' . $articleId . '" class="btn btn-secondary">Отмена</a>
+                </div>
+            </form>
+        ';
+        $pageTitle = 'Редактирование статьи';
+    } else {
+        $pageContent = '<h2>404</h2><p>Статья не найдена.</p>';
+    }
+}
+// ==========================================
+
+elseif ($path === '' || $path === 'index.php' || $path === 'main.php') {
+    // Главная - список статей (Лаба 9) + КНОПКИ вместо ссылок
     $stmt = $pdo->query('SELECT id, title FROM articles');
     $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    $pageContent = '<h2>Список статей:</h2><ul>';
+    $pageContent = '<h2>Список статей:</h2><div class="articles-list">';
     foreach ($articles as $art) {
-        $pageContent .= '<li><a href="/article/' . $art['id'] . '">' . htmlspecialchars($art['title']) . '</a></li>';
+        $pageContent .= '
+            <div class="article-card">
+                <h3>' . htmlspecialchars($art['title']) . '</h3>
+                <a href="/article/' . $art['id'] . '" class="btn btn-primary">Читать статью</a>
+            </div>
+        ';
     }
-    $pageContent .= '</ul>';
+    $pageContent .= '</div>';
 } 
 elseif ($parts[0] === 'article' && isset($parts[1])) {
     // ================= ЛАБА 9 =================
@@ -105,6 +181,13 @@ elseif ($parts[0] === 'article' && isset($parts[1])) {
             <p><strong>Автор:</strong> ' . htmlspecialchars($data['author_nickname']) . '</p>
             <hr>
             <p>' . nl2br(htmlspecialchars($data['article']['content'])) . '</p>
+            
+            <!-- ================= ЛАБА 10 =================
+                 Кнопка редактирования статьи
+            ========================================== -->
+            <div class="article-actions">
+                <a href="/article/' . $articleId . '/edit" class="btn btn-primary">Редактировать статью</a>
+            </div>
         ';
     } else {
         $pageContent = '<h2>404</h2><p>Статья не найдена.</p>';
@@ -151,7 +234,7 @@ else {
 <body>
     <header>
         <img src="logo.jpg" alt="Логотип МосПолитех">
-        <h1>Лабораторная работа №7-9: Роутинг, Контроллер и БД</h1>
+        <h1>Лабораторная работа №7-10: Роутинг, Контроллер, БД и Редактирование</h1>
     </header>
 
     <main>
